@@ -1,9 +1,11 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Profile } = require('../models');
+const { Profile, Booking, Event } = require('../models');
 const { signToken } = require('../utils/auth');
+
 
 const resolvers = {
   Query: {
+
     profiles: async () => {
       return Profile.find();
     },
@@ -11,6 +13,24 @@ const resolvers = {
     profile: async (parent, { profileId }) => {
       return Profile.findOne({ _id: profileId });
     },
+
+    bookings: async () => {
+      try {
+        const bookings = await Booking.find()
+        return bookings.map(booking => {
+          return {
+            ...booking._doc,
+            _id: booking.id,
+            createdAt: new Date(booking._doc.createdAt).toISOString(),
+            updatedAt: new Date(booking._doc.updatedAtAt).toISOString()
+          }
+        });
+      } catch (err) {
+        console.log(err)
+        throw err;
+      }
+    },
+
   },
 
   Mutation: {
@@ -37,6 +57,11 @@ const resolvers = {
       return { token, profile };
     },
 
+    createEvent: async (parent, { title, description, date }) => {
+      return Event.create({ title, description, date });
+
+    },
+
     addSkill: async (parent, { profileId, skill }) => {
       return Profile.findOneAndUpdate(
         { _id: profileId },
@@ -59,7 +84,19 @@ const resolvers = {
         { new: true }
       );
     },
-  },
-};
+    bookEvent: async (parent, { profileId, event }) => {
+      return Event.findOneAndUpdate(
+        { _id: profileId },
+        {
+          $addToSet: { events: { event } },
+        },
+          {
+          new: true,
+          runValidators: true,
+        }
+      );
+    },
+  }
+}
 
-module.exports = resolvers;
+  module.exports = resolvers;

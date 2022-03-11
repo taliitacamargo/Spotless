@@ -25,6 +25,12 @@ const profileSchema = new Schema({
       trim: true,
     },
   ],
+  createdEvents: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Event',
+    },
+  ],
 });
 
 // set up pre-save middleware to create password

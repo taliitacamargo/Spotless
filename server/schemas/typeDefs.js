@@ -1,4 +1,5 @@
 const { gql } = require('apollo-server-express');
+// const {buildSchema} = require('graphql')
 
 const typeDefs = gql`
   type Profile {
@@ -7,6 +8,23 @@ const typeDefs = gql`
     email: String
     password: String
     skills: [String]!
+    
+  }
+
+  type Booking {
+    _id: ID!
+    event: Event!
+    profile: Profile!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type Event {
+    _id:ID!
+    title: String!
+    description: String!
+    date: String!
+    creator: Profile!
   }
 
   type Auth {
@@ -14,15 +32,27 @@ const typeDefs = gql`
     profile: Profile
   }
 
+  input EventInput {
+    title: String!
+    description: String!
+    date: String!
+}
+
+
   type Query {
     profiles: [Profile]!
     profile(profileId: ID!): Profile
+    events: [Event!]!
+    bookings: [Booking!]!
   }
 
   type Mutation {
     addProfile(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
 
+    createEvent(event: EventInput) : Event
+    bookEvent(eventId: ID!): Booking!
+    cancelBooking(bookingId: ID!): Event!
     addSkill(profileId: ID!, skill: String!): Profile
     removeProfile(profileId: ID!): Profile
     removeSkill(profileId: ID!, skill: String!): Profile
