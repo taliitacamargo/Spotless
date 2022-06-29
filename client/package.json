@@ -16,7 +16,6 @@
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "react": "^17.0.1",
-    "react-appointment-picker": "^3.2.0",
     "react-bootstrap": "^2.2.0",
     "react-calendar": "^3.7.0",
     "react-dom": "^17.0.1",
