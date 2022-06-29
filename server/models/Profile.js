@@ -31,6 +31,13 @@ const profileSchema = new Schema({
       ref: 'Event',
     },
   ],
+  bookings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Booking',
+    },
+  ],
+
 });
 
 // set up pre-save middleware to create password

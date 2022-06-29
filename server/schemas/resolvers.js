@@ -14,22 +14,9 @@ const resolvers = {
       return Profile.findOne({ _id: profileId });
     },
 
-    bookings: async () => {
-      try {
-        const bookings = await Booking.find()
-        return bookings.map(booking => {
-          return {
-            ...booking._doc,
-            _id: booking.id,
-            createdAt: new Date(booking._doc.createdAt).toISOString(),
-            updatedAt: new Date(booking._doc.updatedAtAt).toISOString()
-          }
-        });
-      } catch (err) {
-        console.log(err)
-        throw err;
-      }
-    },
+    // bookings: async () => {
+    //   return Booking.find()
+    // },
 
   },
 
@@ -57,9 +44,12 @@ const resolvers = {
       return { token, profile };
     },
 
-    createEvent: async (parent, { title, description, date }) => {
-      return Event.create({ title, description, date });
+    createEvent: async (parent, { title, description,date }) => {
+      console.log('made it to event', title, description, date);
+    const event = await Event.create({ title, description, date, });
 
+    return event;
+    
     },
 
     addSkill: async (parent, { profileId, skill }) => {
@@ -74,9 +64,11 @@ const resolvers = {
         }
       );
     },
+
     removeProfile: async (parent, { profileId }) => {
       return Profile.findOneAndDelete({ _id: profileId });
     },
+
     removeSkill: async (parent, { profileId, skill }) => {
       return Profile.findOneAndUpdate(
         { _id: profileId },
@@ -84,19 +76,32 @@ const resolvers = {
         { new: true }
       );
     },
-    bookEvent: async (parent, { profileId, event }) => {
-      return Event.findOneAndUpdate(
-        { _id: profileId },
-        {
-          $addToSet: { events: { event } },
-        },
-          {
-          new: true,
-          runValidators: true,
-        }
-      );
-    },
-  }
-}
+
+    removeEvent: async (parent, { eventId }) => {
+      return Event.findOneAndDelete({ _id: eventId });
+    }
+  },
+
+  // Profile: {
+  //   bookings: async (parent) => {
+  //     return Booking.find({ profile: parent._id });
+  //   }
+  // }
+};
+
+
+    // bookEvent: async (parent, { profileId, event }) => {
+    //   return Event.findOneAndUpdate(
+    //     { _id: profileId },
+    //     {
+    //       $addToSet: { events: { event } },
+    //     },
+    //       {
+    //       new: true,
+    //       runValidators: true,
+    //     }
+    //   );
+    // },
+
 
   module.exports = resolvers;

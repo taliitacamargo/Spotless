@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from 'framer-motion';
-import Builder from '../components/Builder';
+
      
 const Schedule = () => {
     return(
@@ -10,9 +10,9 @@ const Schedule = () => {
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ delay: 0.5, duration: 1 }}>
-      <p className="header">"Schedule Appointment"</p>
+      <p className="header">"Schedule Appointment 1"</p>
+      <p className = "calendar"></p>
     </motion.div>
-    <Builder/>
   </main>
 );
 
