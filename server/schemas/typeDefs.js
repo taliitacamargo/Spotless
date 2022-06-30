@@ -1,8 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 
-// const {buildSchema} = require('graphql')
-
 const typeDefs = gql`
   type Profile {
     _id: ID

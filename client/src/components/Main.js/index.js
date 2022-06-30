@@ -61,7 +61,7 @@ export default function Main() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1 , duration: 1 }}
         >
-            <Link className="hover-underline-animation" to="/Builder">
+            <Link className="hover-underline-animation" to="/Schedule">
                 <p className="link"> Click here to get started!  </p>
             </Link>
         </motion.div>

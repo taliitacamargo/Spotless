@@ -1,7 +1,4 @@
 import { gql } from '@apollo/client';
-import { useMutation } from '@apollo/client';
-
-
 
 
 export const ADD_PROFILE = gql`

@@ -1,15 +1,7 @@
-import Moment from 'react-moment'
+
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_EVENT } from '../utils/mutations';
-
-
-
-
-
-
-
-
 
 
 const Builder = () => {
@@ -96,7 +88,7 @@ const Builder = () => {
                 onChange={handleChange}
               />
             </div>
-            <button type="submit" className="btn btn-primary col-md-6 offset-md-3">Submit</button>
+            <button type="submit" className="btn btn-primary ">Submit</button>
           </form>
         </div>
       </div>
